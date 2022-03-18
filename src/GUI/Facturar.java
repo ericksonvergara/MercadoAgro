@@ -18,6 +18,7 @@ import static GUI.Venta.cedula;
 import static GUI.Venta.doc_cliente_txt;
 import static GUI.Venta.fecha_venta;
 import static GUI.Venta.valor_total;
+import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -64,6 +65,12 @@ public class Facturar extends javax.swing.JFrame {
 
         jLabel3.setText("Recibido");
 
+        recibido.setText("0.0");
+        recibido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                recibidoMousePressed(evt);
+            }
+        });
         recibido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 recibidoActionPerformed(evt);
@@ -164,7 +171,7 @@ public class Facturar extends javax.swing.JFrame {
                 
 
                 formato1 = DateFormat.getDateInstance();
-                sfecha = formato1.format(fecha_venta.getDate());
+                String sfecha = fecha_venta.getText();
 
                 String query1 = "insert into venta values (" + id + ",'" + sfecha + "'," + Double.parseDouble(valor_total.getText()) + "," + Long.parseLong(doc_cliente_txt.getText().trim()) + "," + Long.parseLong(cedula.getText()) + ")";
                 con1.actualizar(query1);
@@ -190,8 +197,8 @@ public class Facturar extends javax.swing.JFrame {
                 for (int i = 0; i < lista_articulos_table.getRowCount(); i++) {
 
                     int id_p = Integer.parseInt(lista_articulos_table.getValueAt(i, 0).toString());
-                    int can_d_v = Integer.parseInt(lista_articulos_table.getValueAt(i, 1).toString());
-                    double val_d_v = Double.parseDouble(lista_articulos_table.getValueAt(i, 2).toString());
+                    int can_d_v = Integer.parseInt(lista_articulos_table.getValueAt(i, 3).toString());
+                    double val_d_v = Double.parseDouble(lista_articulos_table.getValueAt(i, 5).toString());
 
                     String query = "insert into detalle_venta values (" + id + "," + id_p + "," + can_d_v + "," + val_d_v + ")";
 
@@ -219,7 +226,7 @@ public class Facturar extends javax.swing.JFrame {
             for(int i=0; i<lista_articulos_table.getRowCount() ; i++ ){
             
             int id_p= Integer.parseInt(lista_articulos_table.getValueAt(i, 0).toString());
-            int can_d_v= Integer.parseInt(lista_articulos_table.getValueAt(i, 1).toString());
+            int can_d_v= Integer.parseInt(lista_articulos_table.getValueAt(i, 3).toString());
             
             String query ="update producto set existencia_producto = existencia_producto -"+ can_d_v +" where id_producto="+id_p;
             
@@ -242,6 +249,13 @@ public class Facturar extends javax.swing.JFrame {
     private void recibidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recibidoActionPerformed
     cambio.setText(String.valueOf(Double.parseDouble(recibido.getText().trim())-Double.parseDouble(vt.getText().trim())));
     }//GEN-LAST:event_recibidoActionPerformed
+
+    private void recibidoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_recibidoMousePressed
+   if (recibido.getText().equals("0.0")) {
+            recibido.setText("");
+            recibido.setForeground(Color.black);
+        }
+    }//GEN-LAST:event_recibidoMousePressed
 
     /**
      * @param args the command line arguments

@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -46,25 +48,28 @@ public class Venta extends javax.swing.JPanel {
         cedula.setText(String.valueOf(Long.parseLong(usuario.getText())));
         Hilo_Lee h = new Hilo_Lee();
         h.inicio();
-
+        fecha_venta.setText(fecha());
         //--------------------------------------------------
         //TABLA
         String data3[][] = {};
-        String col[] = {"N°", "Cod Producto", "Descripcion", "Cantidad", "Precio", "Tipo Impuesto", "Total"};
+        String col[] = {"Cod Producto", "Nombre", "Descripcion", "Cantidad", "Precio", "Total"};
         model = new DefaultTableModel(data3, col);
         lista_articulos_table.setModel(model);
 
         //--------------------------------------------------
         //CAMPOS NO EDITABLES
-        fecha_venta.setDate(hoy);
-        nombvend_txt.setEnabled(true);
-        doc_cliente_txt.setEnabled(true);
-        fecha_venta.setEnabled(true);
+        
+        
+        
         id_producto_txt.setEnabled(true);
         cantidad_producto_txt.setEnabled(true);
 
     }
-
+public static String fecha(){
+        Date fecha= new Date();
+        SimpleDateFormat formatofecha=new SimpleDateFormat ("dd/MM/YYYY");
+        return formatofecha.format(fecha);
+    }
     public class Hilo_Lee implements Runnable {
 
         Thread hilo;
@@ -137,17 +142,8 @@ public class Venta extends javax.swing.JPanel {
     private void initComponents() {
 
         body = new javax.swing.JPanel();
-        docutxt = new javax.swing.JLabel();
-        doc_cliente_txt = new javax.swing.JTextField();
         clientetxt = new javax.swing.JLabel();
-        nom_cliente_txt = new javax.swing.JTextField();
-        fecha_venta = new com.toedter.calendar.JDateChooser();
-        fechatxt1 = new javax.swing.JLabel();
-        nombvend_txt = new javax.swing.JTextField();
-        vendtxt = new javax.swing.JLabel();
-        pagotxt = new javax.swing.JLabel();
-        tipopago = new javax.swing.JComboBox<>();
-        fechatxt = new javax.swing.JLabel();
+        doc_cliente_txt = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         lista_articulos_table = new javax.swing.JTable();
         cedula = new javax.swing.JLabel();
@@ -155,17 +151,20 @@ public class Venta extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         id_venta = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         valor_total = new javax.swing.JLabel();
         id_producto_txt = new javax.swing.JTextField();
-        nom_producto_txt = new javax.swing.JTextField();
         cantidad_producto_txt = new javax.swing.JTextField();
+        elm = new javax.swing.JLabel();
+        facturar = new javax.swing.JButton();
+        agg = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        fecha_venta = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        bsc_p = new javax.swing.JLabel();
+        bsc_c = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(750, 430));
@@ -176,71 +175,31 @@ public class Venta extends javax.swing.JPanel {
         body.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         add(body, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        docutxt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        docutxt.setText("DOCUMENTO");
-        add(docutxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, -1, -1));
+        clientetxt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        clientetxt.setText("CLIENTE");
+        add(clientetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
         doc_cliente_txt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         doc_cliente_txt.setForeground(new java.awt.Color(204, 204, 204));
-        doc_cliente_txt.setText("ingrese la cc o nit");
-        doc_cliente_txt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                doc_cliente_txtActionPerformed(evt);
-            }
-        });
-        add(doc_cliente_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 136, -1));
-
-        clientetxt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        clientetxt.setText("CLIENTE");
-        add(clientetxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 50, -1, -1));
-
-        nom_cliente_txt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        nom_cliente_txt.setForeground(new java.awt.Color(204, 204, 204));
-        nom_cliente_txt.setText("nombre del cliente");
-        add(nom_cliente_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, 182, -1));
-        add(fecha_venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, 190, -1));
-
-        fechatxt1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        fechatxt1.setText("FECHA");
-        add(fechatxt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 100, -1, -1));
-
-        nombvend_txt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        nombvend_txt.setForeground(new java.awt.Color(204, 204, 204));
-        nombvend_txt.setText("nombre vendedor");
-        add(nombvend_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 136, -1));
-
-        vendtxt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        vendtxt.setText("VENDEDOR");
-        add(vendtxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 100, -1, -1));
-
-        pagotxt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        pagotxt.setText("PAGO");
-        add(pagotxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
-
-        tipopago.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        tipopago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONE", "CONTADO", "TJ CREDITO", "TJ DEBITO", "BONO" }));
-        add(tipopago, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 136, -1));
-
-        fechatxt.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        fechatxt.setText("CEDULA V");
-        add(fechatxt, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, -1, 30));
+        doc_cliente_txt.setText("cedula del cliente");
+        add(doc_cliente_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 182, -1));
 
         lista_articulos_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "N°", "Cod del Articulo", "Descripcion", "Cantidad", "Precio", "Tipo Impuesto", "Total"
+                "Cod del Articulo", "Nombre", "Descripcion", "Cantidad", "Precio", "Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.Integer.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class
+                java.lang.Long.class, java.lang.Long.class, java.lang.String.class, java.lang.Integer.class, java.lang.Long.class, java.lang.Long.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -253,8 +212,10 @@ public class Venta extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(lista_articulos_table);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, 652, 190));
-        add(cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 140, 150, 30));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 720, 260));
+
+        cedula.setText("jLabel");
+        add(cedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 150, 20));
 
         nuevaventa_btn.setText("Nueva Venta");
         nuevaventa_btn.addActionListener(new java.awt.event.ActionListener() {
@@ -262,68 +223,85 @@ public class Venta extends javax.swing.JPanel {
                 nuevaventa_btnActionPerformed(evt);
             }
         });
-        add(nuevaventa_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 450, 110, -1));
+        add(nuevaventa_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 110, -1));
 
         jLabel1.setText("FACTURA No.");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, 20));
 
         id_venta.setText("jLabel2");
-        add(id_venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 20, 110, -1));
+        add(id_venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 110, 20));
 
         jLabel3.setText("cod producto");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
-
-        jLabel5.setText("nombre producto");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, -1, -1));
-        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 620, 10));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
+        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 730, 10));
 
         jLabel4.setText("cantidad");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 210, -1, -1));
-
-        jLabel6.setText("Total");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 460, -1, -1));
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 120, -1, 20));
 
         valor_total.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         valor_total.setText("0.0");
-        add(valor_total, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 460, 50, -1));
-        add(id_producto_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 80, -1));
-        add(nom_producto_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, 100, -1));
-        add(cantidad_producto_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 70, -1));
+        add(valor_total, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 450, 80, -1));
+        add(id_producto_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 130, -1));
+        add(cantidad_producto_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 120, 70, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_producto.png"))); // NOI18N
-        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+        elm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_producto.png"))); // NOI18N
+        elm.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
+                elmMouseClicked(evt);
             }
         });
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 210, -1, -1));
+        add(elm, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 120, -1, -1));
 
-        jButton1.setMnemonic('f');
-        jButton1.setText("Facturar");
-        jButton1.setToolTipText("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        facturar.setMnemonic('f');
+        facturar.setText("Facturar");
+        facturar.setToolTipText("");
+        facturar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                facturarActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 450, 100, -1));
+        add(facturar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 450, 100, -1));
 
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boton_agregar_producto .png"))); // NOI18N
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+        agg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        agg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/boton_agregar_producto .png"))); // NOI18N
+        agg.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
+                aggMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel7MousePressed(evt);
+                aggMousePressed(evt);
             }
         });
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, -1, -1));
-    }// </editor-fold>//GEN-END:initComponents
+        add(agg, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 120, -1, -1));
 
-    private void doc_cliente_txtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_doc_cliente_txtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_doc_cliente_txtActionPerformed
+        jLabel2.setText("FECHA VENTA");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, 90, 20));
+
+        fecha_venta.setText("jLabel7");
+        add(fecha_venta, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 180, 20));
+
+        jLabel7.setText("VENDEDOR");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 70, 20));
+
+        jLabel8.setText("Total");
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 450, 40, -1));
+
+        bsc_p.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        bsc_p.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bsc_pMouseClicked(evt);
+            }
+        });
+        add(bsc_p, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 40, 40));
+
+        bsc_c.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
+        bsc_c.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bsc_cMouseClicked(evt);
+            }
+        });
+        add(bsc_c, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 40, 40));
+    }// </editor-fold>//GEN-END:initComponents
 
     private void nuevaventa_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevaventa_btnActionPerformed
         // TODO add your handling code here
@@ -331,15 +309,14 @@ public class Venta extends javax.swing.JPanel {
         Venta.Hilo_Lee hl=new Venta.Hilo_Lee();
         hl.inicio();
         
-        nombvend_txt.setEnabled(true);
+        
         
         DefaultTableModel tb = (DefaultTableModel) lista_articulos_table.getModel();
         int a = lista_articulos_table.getRowCount()-1;
         for (int i = a; i >= 0; i--) {
             tb.removeRow(tb.getRowCount()-1);
         }
-        doc_cliente_txt.setText("Ingrese la Cedula del Cliente");
-        nombvend_txt.setText("Seleccione");
+        
         id_producto_txt.setText("Ingrese Id");
         cantidad_producto_txt.setText("Ingrese Cantidad");
         valor_total.setText("0.0");
@@ -371,7 +348,7 @@ public class Venta extends javax.swing.JPanel {
     }
     }//GEN-LAST:event_nuevaventa_btnActionPerformed
 
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+    private void elmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_elmMouseClicked
         // TODO add your handling code here:
         if(lista_articulos_table.getSelectedRow()>=0){
     DefaultTableModel model =(DefaultTableModel)lista_articulos_table.getModel();
@@ -386,7 +363,7 @@ public class Venta extends javax.swing.JPanel {
     int contar=lista_articulos_table.getRowCount();
             double suma=0;
             for(int i=0; i<contar;i++){
-            suma=suma+Double.parseDouble(lista_articulos_table.getValueAt(i, 2).toString());
+            suma=suma+Double.parseDouble(lista_articulos_table.getValueAt(i, 5).toString());
             String sum = Double.toString(suma);
             valor_total.setText(sum);
             
@@ -394,9 +371,9 @@ public class Venta extends javax.swing.JPanel {
             if(contar==0){
             valor_total.setText("0.0");
             }
-    }//GEN-LAST:event_jLabel2MouseClicked
+    }//GEN-LAST:event_elmMouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void facturarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_facturarActionPerformed
         // TODO add your handling code here:
         
         Facturar fac = new Facturar();
@@ -417,9 +394,9 @@ public class Venta extends javax.swing.JPanel {
             //CONFIRMACION DE LA VENTA
 
            
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_facturarActionPerformed
 
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+    private void aggMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aggMouseClicked
     try {
             if(id_producto_txt.getText().equals("Ingrese Id") || id_producto_txt.getText().equals("")){
             JOptionPane.showMessageDialog(this, "Ingrese el Id del Producto");
@@ -444,13 +421,13 @@ public class Venta extends javax.swing.JPanel {
                 double subt = val*cant;
                 
                 model.insertRow(con1,new Object[]{});
-               
                 
-                model.setValueAt((id_producto_txt.getText().trim()), con1, 1);
+                model.setValueAt((id_producto_txt.getText().trim()), con1, 0);
+                model.setValueAt((rs.getString("nombre_producto")),con1,1);
                 model.setValueAt((rs.getString("descripcion_producto")),con1,2);
                 model.setValueAt((cantidad_producto_txt.getText().trim()), con1, 3);                
                 model.setValueAt(rs.getString("valor_producto"), con1, 4);
-                model.setValueAt((subt), con1, 6);
+                model.setValueAt((subt), con1, 5);
                 
                 
             con1++;
@@ -462,13 +439,14 @@ public class Venta extends javax.swing.JPanel {
             int contar=lista_articulos_table.getRowCount();
             double suma=0;
             for(int i=0; i<contar;i++){
-            suma=suma+Double.parseDouble(lista_articulos_table.getValueAt(i, 2).toString());
+            suma=suma+Double.parseDouble(lista_articulos_table.getValueAt(i, 5).toString());
             String sum = Double.toString(suma);
             valor_total.setText(sum);
             }
             
             cantidad_producto_txt.setText(null);
             id_producto_txt.setText(null);
+            
             }
             
             
@@ -481,44 +459,48 @@ public class Venta extends javax.swing.JPanel {
         } catch (IllegalAccessException ex) {
             Logger.getLogger(Venta.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jLabel7MouseClicked
+    }//GEN-LAST:event_aggMouseClicked
 
-    private void jLabel7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MousePressed
+    private void aggMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aggMousePressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel7MousePressed
+    }//GEN-LAST:event_aggMousePressed
+
+    private void bsc_cMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bsc_cMouseClicked
+    Buscar_Cliente busquedaC = new Buscar_Cliente();
+    busquedaC.setVisible(true);
+    }//GEN-LAST:event_bsc_cMouseClicked
+
+    private void bsc_pMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bsc_pMouseClicked
+    Buscar_Producto busquedaP = new Buscar_Producto();
+    busquedaP.setVisible(true);
+    }//GEN-LAST:event_bsc_pMouseClicked
 
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel agg;
     private javax.swing.JPanel body;
+    private javax.swing.JLabel bsc_c;
+    private javax.swing.JLabel bsc_p;
     private javax.swing.JTextField cantidad_producto_txt;
     public static javax.swing.JLabel cedula;
     private javax.swing.JLabel clientetxt;
     public static javax.swing.JTextField doc_cliente_txt;
-    private javax.swing.JLabel docutxt;
-    public static com.toedter.calendar.JDateChooser fecha_venta;
-    private javax.swing.JLabel fechatxt;
-    private javax.swing.JLabel fechatxt1;
+    private javax.swing.JLabel elm;
+    private javax.swing.JButton facturar;
+    public static javax.swing.JLabel fecha_venta;
     private javax.swing.JTextField id_producto_txt;
     public static javax.swing.JLabel id_venta;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     public static javax.swing.JTable lista_articulos_table;
-    public static javax.swing.JTextField nom_cliente_txt;
-    private javax.swing.JTextField nom_producto_txt;
-    private javax.swing.JTextField nombvend_txt;
     private javax.swing.JButton nuevaventa_btn;
-    private javax.swing.JLabel pagotxt;
-    private javax.swing.JComboBox<String> tipopago;
     public static javax.swing.JLabel valor_total;
-    private javax.swing.JLabel vendtxt;
     // End of variables declaration//GEN-END:variables
 }
